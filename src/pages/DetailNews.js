@@ -14,7 +14,7 @@ const DetailNews = () => {
     const loading = useSelector((state) => state.loading.loading);
     const dispatch = useDispatch();
 
-    const fetchData = async (newsID) => {
+    const fetchData = async () => {
         const response = await GetDetailNews(dispatch, newsID);
         if(response.status) {
             setDetailData(response.data);
@@ -22,7 +22,7 @@ const DetailNews = () => {
     }
 
     useEffect(() => {
-        fetchData(newsID)
+        fetchData()
         .catch(console.error);
     }, []);
     return loading ? (<Loader />): (
