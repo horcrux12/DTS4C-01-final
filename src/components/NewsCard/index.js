@@ -11,7 +11,7 @@ const NewsCard = (props) => {
   const navigate = useNavigate();
   
     return (
-    <Card sx={{ maxWidth: 345, minHeight:'23em' }}>
+    <Card sx={{ maxWidth: 345, minHeight:'23em' }} elevation={5}>
       <CardActionArea onClick={() => navigate(link)}>
         <CardMedia
           component="img"

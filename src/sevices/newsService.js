@@ -1,5 +1,5 @@
 import { doGet, doGetDetail } from "../api/newsAPI"
-import { getDetailNews, getListNews, getTopNews } from "../constanta/routes"
+import { getDetailNews, getListNews, getSimilarNews, getTopNews } from "../constanta/routes"
 import { loadingData, loadingLatestNews } from "../store/features/loading/loadingSlice"
 
 export const GetNews = async (page, limit, language, sort, categories, search, dispatch) => {
@@ -105,4 +105,39 @@ export const GetDetailNews = async (dispatch, uuid) => {
     }
 
     return result
+}
+
+export const GetSimilarNews = async (page, limit, language, uuid, dispatch) => {
+    let result = {
+        status: false,
+    }
+
+    const params = {
+        page, 
+        limit,
+    }
+    
+    if(language){
+        params.language = language
+    }
+
+    const url = getSimilarNews + "/" + uuid
+    dispatch && dispatch(loadingLatestNews(true));
+    try {
+        const response = await doGet(url, params);
+        if (response) {
+            // todo dispatch loading
+            dispatch && dispatch(loadingLatestNews(false));
+            result = {
+                ...result,
+                status: true,
+                ...response.data
+            }
+        }
+    } catch (error) {
+        dispatch && dispatch(loadingLatestNews(false));
+        console.log(error);
+    }
+
+    return result;
 }

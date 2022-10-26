@@ -33,16 +33,6 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-// const SearchIconWrapper = styled('div')(({ theme }) => ({
-//   padding: theme.spacing(0, 2),
-//   height: '100%',
-//   position: 'absolute',
-//   display: 'flex',
-//   alignItems: 'center',
-//   justifyContent: 'center',
-//   cursor: 'pointer'
-// }));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
@@ -117,6 +107,7 @@ const Navbar = () => {
 
   const handleEnterSearch = (e) => {
     if (e.key === 'Enter' || e.keyCode === 13) {
+      setSearch("")
       navigate('/search', {state : {search: search}})
     }
   }
@@ -129,7 +120,10 @@ const Navbar = () => {
           <Typography
             variant="h6"
             noWrap
-            onClick={() => {navigate("/")}}
+            onClick={() => {
+              setSearch("")
+              navigate("/")
+            }}
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -220,7 +214,7 @@ const Navbar = () => {
           <Search>
             <StyledInputBase
               startAdornment={
-                <IconButton onClick={() => navigate('/search', {state : {search: search}})}>
+                <IconButton sx={{color:'white'}} onClick={() => navigate('/search', {state : {search: search}})}>
                   <SearchIcon />
                 </IconButton>
               }

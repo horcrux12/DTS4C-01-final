@@ -23,7 +23,7 @@ const HeroCard = (props) => {
                     color:'common.white',
                     backgroundColor: 'rgba(0,0,0,.15)'
                 }}>
-                     {children}
+                     {children ? children : null}
                 </FiCardContent>
             </FiCardActionArea>
         </FiCard>

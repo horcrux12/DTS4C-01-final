@@ -4,9 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ContainerMaxWidth } from '../constanta/constanta';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetDetailNews } from '../sevices/newsService';
+import { GetDetailNews, GetNews, GetSimilarNews } from '../sevices/newsService';
 import Loader from '../components/Skeleton/Loader';
 import moment from 'moment';
+import SkeletonCard from '../components/Skeleton/SkeletonCard';
+import RelatedNews from '../components/RelatedNews';
 
 const DetailNews = () => {
     const {newsID} = useParams();
@@ -14,15 +16,15 @@ const DetailNews = () => {
     const loading = useSelector((state) => state.loading.loading);
     const dispatch = useDispatch();
 
-    const fetchData = async () => {
-        const response = await GetDetailNews(dispatch, newsID);
+    const fetchData = async (id) => {
+        const response = await GetDetailNews(dispatch, id);
         if(response.status) {
             setDetailData(response.data);
         }
     }
 
     useEffect(() => {
-        fetchData()
+        fetchData(newsID)
         .catch(console.error);
     }, []);
     return loading ? (<Loader />): (
@@ -66,30 +68,7 @@ const DetailNews = () => {
                         </Grid>
                     </Grid>
                     <Grid item xs={4} borderLeft='1px solid' borderColor='divider' >
-                        <Typography 
-                            variant='h4' align='center' 
-                            fontWeight='bold' color='primary.light'
-                            mb={5}
-                        >Related Post</Typography>
-                        <Stack px={2} spacing={3}>
-                            <Card elevation={4} sx={{
-                                    borderLeft:'10px solid',
-                                    borderColor:'primary.main',
-                                    borderRadius:2
-                                }}>
-                                <CardActionArea>
-                                    <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div" fontWeight={600}>
-                                        Lizard
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
-                                    </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </Stack>
+                        <RelatedNews uuid={newsID} fetchApi={fetchData}/>
                     </Grid>
                 </Grid>
             </Container>

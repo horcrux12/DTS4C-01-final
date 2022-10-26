@@ -36,7 +36,7 @@ const LatestNews = () => {
             <Grid container spacing={3}>
                 {
                     (loading ? Array.from(new Array(4)) : newsData).map((items, idx) => (    
-                        <Grid md={3} item key ={idx}>
+                        <Grid md={3} xs={6} item key ={idx}>
                             {
                                 loading ? (
                                     <SkeletonCard/>
