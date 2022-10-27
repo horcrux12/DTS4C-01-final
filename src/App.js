@@ -10,6 +10,7 @@ import Error505 from './pages/Error505';
 import Error404 from './pages/Error404';
 import Register from './pages/Register';
 import SearchPage from './pages/SearchPage';
+import Categories from './pages/Categories';
 
 const theme = createTheme({
   palette: {
@@ -51,6 +52,7 @@ function App() {
             <Route path='/testing' element={<></>}/>
             <Route path='/home' element={<HomePage/>}/>
             <Route path='/search' element={<SearchPage/>}/>
+            <Route path='/categories' element={<Categories/>}/>
             <Route path='/detail/:newsID' element={<DetailNews/>}/>
           </Route>
           <Route path='*' element={<Error404/>}/>
